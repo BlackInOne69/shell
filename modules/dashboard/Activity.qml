@@ -111,6 +111,8 @@ Item {
                 anchors.margins: Appearance.padding.large
                 spacing: Appearance.spacing.normal
                 
+                visible: count > 0
+
                 model: ListModel { id: appModel }
                 
                 function updateModel() {
@@ -195,6 +197,26 @@ Item {
                             }
                         }
                     }
+                }
+            }
+
+            ColumnLayout {
+                anchors.centerIn: parent
+                visible: appList.count === 0
+                spacing: Appearance.spacing.large
+
+                MaterialIcon {
+                    text: "history"
+                    font.pointSize: 64
+                    color: Colours.palette.m3surfaceVariant
+                    Layout.alignment: Qt.AlignHCenter
+                }
+
+                StyledText {
+                    text: "No activity recorded"
+                    font.pointSize: Appearance.font.size.large
+                    color: Colours.palette.m3onSurfaceVariant
+                    Layout.alignment: Qt.AlignHCenter
                 }
             }
         }
