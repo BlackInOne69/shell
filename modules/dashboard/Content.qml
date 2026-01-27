@@ -111,6 +111,10 @@ Item {
                     index: 3
                     sourceComponent: Weather {}
                 }
+                                Pane {
+                    index: 3
+                    sourceComponent: Activity {}
+                }
             }
 
             Behavior on contentX {

@@ -8,6 +8,8 @@ import QtQuick
 Singleton {
     id: root
 
+    readonly property string activity: "monitoring"
+
     readonly property var weatherIcons: ({
             "0": "clear_day",
             "1": "clear_day",
@@ -80,10 +82,22 @@ Singleton {
         })
 
     function getAppIcon(name: string, fallback: string): string {
-        const icon = DesktopEntries.heuristicLookup(name)?.icon;
+        var icon = DesktopEntries.heuristicLookup(name)?.icon;
+        
+        if (!icon) {
+             icon = DesktopEntries.heuristicLookup(name.toLowerCase())?.icon;
+        }
+        if (!icon) {
+            icon = name.toLowerCase();
+        }
+        
+        var p = Quickshell.iconPath(icon);
+        if (p) return p;
+
         if (fallback !== "undefined")
-            return Quickshell.iconPath(icon, fallback);
-        return Quickshell.iconPath(icon);
+            return Quickshell.iconPath(fallback);
+            
+        return Quickshell.iconPath("application-x-executable"); 
     }
 
     function getAppCategoryIcon(name: string, fallback: string): string {
